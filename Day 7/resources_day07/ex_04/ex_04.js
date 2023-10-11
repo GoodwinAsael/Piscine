@@ -1,44 +1,43 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const plusButtons = document.getElementsByClassName("plus-btn");
-    const minusButtons = document.getElementsByClassName("minus-btn");
-    const deleteButtons = document.getElementsByClassName("delete-btn");
-    const likeButtons = document.getElementsByClassName("like-btn");
+document.addEventListener('DOMContentLoaded', function() {
+    const likeBtn = document.querySelectorAll('.like-btn');
 
-    // Ajouter un gestionnaire d'événements pour les boutons +
-    Array.from(plusButtons).forEach(function(button) {
-        button.addEventListener("click", function() {
-            const quantityInput = button.nextElementSibling;
-            let quantity = parseInt(quantityInput.value);
-            quantity++;
-            quantityInput.value = quantity;
+    likeBtn.forEach(function (button) {
+        button.addEventListener('click', function () {
+            this.classList.toggle('is-active');
         });
     });
+});
 
-    // Ajouter un gestionnaire d'événements pour les boutons -
-    Array.from(minusButtons).forEach(function(button) {
-        button.addEventListener("click", function() {
-            const quantityInput = button.previousElementSibling;
-            let quantity = parseInt(quantityInput.value);
-            if (quantity > 1) {
-                quantity--;
-                quantityInput.value = quantity;
-            }
-        });
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteButtons = document.querySelectorAll('.delete-btn');
 
-    // Ajouter un gestionnaire d'événements pour les boutons x
-    Array.from(deleteButtons).forEach(function(button) {
-        button.addEventListener("click", function() {
-            const item = button.parentElement.parentElement;
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const item = this.closest('.item');
             item.remove();
         });
     });
+});
 
-    // Ajouter un gestionnaire d'événements pour les boutons heart
-    Array.from(likeButtons).forEach(function(button) {
-        button.addEventListener("click", function() {
-            const item = button.parentElement.parentElement;
-            item.classList.toggle("is-active");
+document.addEventListener('DOMContentLoaded', function() {
+    const plusButtons = document.querySelectorAll('.plus-btn');
+    const minusButtons = document.querySelectorAll('.minus-btn');
+
+    plusButtons.forEach(function (plus) {
+        plus.addEventListener('click', function () {
+            const quantityInput = this.parentElement.querySelector('input');
+            const currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+        });
+    });
+
+    minusButtons.forEach(function (minus) {
+        minus.addEventListener('click', function () {
+            const quantityInput = this.parentElement.querySelector('input');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
         });
     });
 });
